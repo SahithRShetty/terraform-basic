@@ -1,0 +1,5 @@
+secret_keys/
+.terraform/
+.vscode/
+terraform.tfstate
+terraform.tfstate.backup
