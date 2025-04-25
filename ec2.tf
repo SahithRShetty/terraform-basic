@@ -20,6 +20,21 @@ resource "aws_instance" "ec2" {
   key_name      = aws_key_pair.ec2.key_name
   subnet_id     = data.aws_subnet.mainp_a.id
   security_groups = [ aws_security_group.ec2.id ]
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y nginx"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("${path.module}/id_rsa")
+      host        = self.public_ip
+    }
+  }
+
   lifecycle {
     ignore_changes = [
         security_groups,
