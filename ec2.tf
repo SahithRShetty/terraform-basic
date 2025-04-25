@@ -30,7 +30,7 @@ resource "aws_instance" "ec2" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("${path.module}/id_rsa")
+      private_key = tls_private_key.ec2.private_key_openssh
       host        = self.public_ip
     }
   }
